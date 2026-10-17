@@ -17,6 +17,9 @@
       button:hover { background: #4540a4; }
       button:active { transform: translateY(1px); }
       button:focus-visible { outline: 3px solid #9b96ed; outline-offset: 4px; }
+      .actions { display: flex; flex-wrap: wrap; gap: 12px; }
+      .secondary { background: #eeedf8; color: #4540a4; }
+      .secondary:hover { background: #e0def3; }
       .hint { margin: 20px 0 0; color: #747585; font-size: 13px; line-height: 1.5; }
     </style>
   </head>
@@ -25,8 +28,11 @@
       <p class="eyebrow">Small interaction. Fresh perspective.</p>
       <h1>A little change.</h1>
       <p id="message" role="status" aria-live="polite" aria-atomic="true">Hello! A new message is just a click away.</p>
-      <button id="change-message" type="button">Change the message <span aria-hidden="true">↗</span></button>
-      <p class="hint">Click again whenever you need a fresh thought.</p>
+      <div class="actions">
+        <button id="change-message" type="button">Change the message <span aria-hidden="true">↗</span></button>
+        <button id="reset-message" class="secondary" type="button">Reset message</button>
+      </div>
+      <p class="hint">Click for a fresh thought, or reset to start again.</p>
     </main>
     <script>
       const messages = [
@@ -38,6 +44,10 @@
       let messageIndex = 0;
       document.getElementById('change-message').addEventListener('click', () => {
         messageIndex = (messageIndex + 1) % messages.length;
+        document.getElementById('message').textContent = messages[messageIndex];
+      });
+      document.getElementById('reset-message').addEventListener('click', () => {
+        messageIndex = 0;
         document.getElementById('message').textContent = messages[messageIndex];
       });
     </script>
